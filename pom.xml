@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>GameAuth</name>
-    <description>Game Authentication & Authorization System</description>
+    <description>Game Authentication and Authorization System</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

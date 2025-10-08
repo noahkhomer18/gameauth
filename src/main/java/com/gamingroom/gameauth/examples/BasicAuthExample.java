@@ -26,7 +26,13 @@ public class BasicAuthExample {
         // Example 1: Authenticate admin user
         System.out.println("1. Authenticating admin user:");
         BasicCredentials adminCreds = new BasicCredentials("admin", "admin123");
-        Optional<GameUser> adminUser = authenticator.authenticate(adminCreds);
+        Optional<GameUser> adminUser;
+        try {
+            adminUser = authenticator.authenticate(adminCreds);
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            adminUser = Optional.empty();
+        }
         
         if (adminUser.isPresent()) {
             GameUser user = adminUser.get();
@@ -47,7 +53,13 @@ public class BasicAuthExample {
         // Example 2: Authenticate regular user
         System.out.println("2. Authenticating regular user:");
         BasicCredentials userCreds = new BasicCredentials("user", "password");
-        Optional<GameUser> regularUser = authenticator.authenticate(userCreds);
+        Optional<GameUser> regularUser;
+        try {
+            regularUser = authenticator.authenticate(userCreds);
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            regularUser = Optional.empty();
+        }
         
         if (regularUser.isPresent()) {
             GameUser user = regularUser.get();
@@ -82,7 +94,13 @@ public class BasicAuthExample {
         
         // Authenticate the new user
         BasicCredentials newUserCreds = new BasicCredentials(newUsername, newPassword);
-        Optional<GameUser> newUser = authenticator.authenticate(newUserCreds);
+        Optional<GameUser> newUser;
+        try {
+            newUser = authenticator.authenticate(newUserCreds);
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            newUser = Optional.empty();
+        }
         
         if (newUser.isPresent()) {
             GameUser user = newUser.get();
@@ -100,7 +118,13 @@ public class BasicAuthExample {
         // Example 4: Failed authentication
         System.out.println("4. Attempting failed authentication:");
         BasicCredentials invalidCreds = new BasicCredentials("invaliduser", "wrongpassword");
-        Optional<GameUser> invalidUser = authenticator.authenticate(invalidCreds);
+        Optional<GameUser> invalidUser;
+        try {
+            invalidUser = authenticator.authenticate(invalidCreds);
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            invalidUser = Optional.empty();
+        }
         
         if (invalidUser.isEmpty()) {
             System.out.println("   ✓ Correctly rejected invalid credentials");

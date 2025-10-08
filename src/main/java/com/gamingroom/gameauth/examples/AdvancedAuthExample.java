@@ -55,7 +55,13 @@ public class AdvancedAuthExample {
     
     private static void demonstrateRoleHierarchy(GameAuthenticator authenticator, GameAuthorizer authorizer) {
         // Test super admin
-        Optional<GameUser> superAdmin = authenticator.authenticate(new BasicCredentials("superadmin", "superpass"));
+        Optional<GameUser> superAdmin;
+        try {
+            superAdmin = authenticator.authenticate(new BasicCredentials("superadmin", "superpass"));
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            superAdmin = Optional.empty();
+        }
         if (superAdmin.isPresent()) {
             GameUser user = superAdmin.get();
             System.out.println("   Super Admin: " + user.getName());
@@ -66,7 +72,13 @@ public class AdvancedAuthExample {
         }
         
         // Test moderator
-        Optional<GameUser> moderator = authenticator.authenticate(new BasicCredentials("moderator1", "modpass1"));
+        Optional<GameUser> moderator;
+        try {
+            moderator = authenticator.authenticate(new BasicCredentials("moderator1", "modpass1"));
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            moderator = Optional.empty();
+        }
         if (moderator.isPresent()) {
             GameUser user = moderator.get();
             System.out.println("   Moderator: " + user.getName());
@@ -79,7 +91,13 @@ public class AdvancedAuthExample {
     
     private static void demonstrateComplexAuthorization(GameAuthenticator authenticator, GameAuthorizer authorizer) {
         // Test player with multiple roles
-        Optional<GameUser> player = authenticator.authenticate(new BasicCredentials("player1", "playerpass1"));
+        Optional<GameUser> player;
+        try {
+            player = authenticator.authenticate(new BasicCredentials("player1", "playerpass1"));
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            player = Optional.empty();
+        }
         if (player.isPresent()) {
             GameUser user = player.get();
             System.out.println("   Player: " + user.getName());
@@ -110,7 +128,13 @@ public class AdvancedAuthExample {
         GameAuthenticator.addUser(tempUser, tempPass, tempRoles);
         
         // Verify the user was added
-        Optional<GameUser> addedUser = authenticator.authenticate(new BasicCredentials(tempUser, tempPass));
+        Optional<GameUser> addedUser;
+        try {
+            addedUser = authenticator.authenticate(new BasicCredentials(tempUser, tempPass));
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            addedUser = Optional.empty();
+        }
         if (addedUser.isPresent()) {
             System.out.println("   ✓ Temporary user authenticated successfully");
             System.out.println("   ✓ Roles: " + addedUser.get().getRoles());
@@ -121,7 +145,13 @@ public class AdvancedAuthExample {
         GameAuthenticator.removeUser(tempUser);
         
         // Verify the user was removed
-        Optional<GameUser> removedUser = authenticator.authenticate(new BasicCredentials(tempUser, tempPass));
+        Optional<GameUser> removedUser;
+        try {
+            removedUser = authenticator.authenticate(new BasicCredentials(tempUser, tempPass));
+        } catch (Exception e) {
+            System.out.println("   ✗ Authentication error: " + e.getMessage());
+            removedUser = Optional.empty();
+        }
         if (removedUser.isEmpty()) {
             System.out.println("   ✓ Temporary user successfully removed");
         } else {
@@ -133,15 +163,30 @@ public class AdvancedAuthExample {
         System.out.println("   Testing null and empty inputs:");
         
         // Test null credentials
-        Optional<GameUser> nullResult = authenticator.authenticate(null);
+        Optional<GameUser> nullResult;
+        try {
+            nullResult = authenticator.authenticate(null);
+        } catch (Exception e) {
+            nullResult = Optional.empty();
+        }
         System.out.println("   ✓ Null credentials handled: " + (nullResult.isEmpty() ? "PASS" : "FAIL"));
         
         // Test empty username
-        Optional<GameUser> emptyUserResult = authenticator.authenticate(new BasicCredentials("", "password"));
+        Optional<GameUser> emptyUserResult;
+        try {
+            emptyUserResult = authenticator.authenticate(new BasicCredentials("", "password"));
+        } catch (Exception e) {
+            emptyUserResult = Optional.empty();
+        }
         System.out.println("   ✓ Empty username handled: " + (emptyUserResult.isEmpty() ? "PASS" : "FAIL"));
         
         // Test null username
-        Optional<GameUser> nullUserResult = authenticator.authenticate(new BasicCredentials(null, "password"));
+        Optional<GameUser> nullUserResult;
+        try {
+            nullUserResult = authenticator.authenticate(new BasicCredentials(null, "password"));
+        } catch (Exception e) {
+            nullUserResult = Optional.empty();
+        }
         System.out.println("   ✓ Null username handled: " + (nullUserResult.isEmpty() ? "PASS" : "FAIL"));
         
         // Test authorization with null user
@@ -149,7 +194,12 @@ public class AdvancedAuthExample {
         System.out.println("   ✓ Null user authorization handled: " + (!nullUserAuth ? "PASS" : "FAIL"));
         
         // Test authorization with null role
-        Optional<GameUser> validUser = authenticator.authenticate(new BasicCredentials("user", "password"));
+        Optional<GameUser> validUser;
+        try {
+            validUser = authenticator.authenticate(new BasicCredentials("user", "password"));
+        } catch (Exception e) {
+            validUser = Optional.empty();
+        }
         if (validUser.isPresent()) {
             boolean nullRoleAuth = authorizer.authorize(validUser.get(), null);
             System.out.println("   ✓ Null role authorization handled: " + (!nullRoleAuth ? "PASS" : "FAIL"));
