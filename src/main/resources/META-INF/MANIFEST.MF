@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: GameAuth
+Implementation-Version: 1.0.0
+Implementation-Vendor: GameAuth Team
+Main-Class: com.gamingroom.gameauth.GameAuthApplication
+Built-By: GameAuth Team
+Built-Date: 2024-01-XX
+Specification-Title: Game Authentication and Authorization System
+Specification-Version: 1.0.0
