@@ -2,6 +2,8 @@
 
 A robust Java-based authentication and authorization system designed for game applications, built with Dropwizard framework. This project provides secure user management with role-based access control, perfect for gaming platforms that require user authentication and permission management.
 
+**Keywords**: java authentication, game security, dropwizard auth, role-based access control, java security framework, game user management, java authentication library, spring security alternative, java rbac, authentication system, authorization framework, java game development, secure authentication, user permissions, java security, authentication service, java framework, game backend, java microservices, authentication middleware
+
 ## 🚀 Features
 
 - **Secure Authentication**: Basic authentication with username/password validation
@@ -254,13 +256,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - SNHU Computer Science Program
 - Dropwizard Framework Team
 - Java Community for best practices and patterns
-
-## 📞 Support
-
-For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation for common solutions
 
 ---
 
