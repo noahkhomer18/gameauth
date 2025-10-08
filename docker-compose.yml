@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  gameauth:
+    build: .
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms256m
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Add database for future use
+  # database:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_DB: gameauth
+  #     POSTGRES_USER: gameauth
+  #     POSTGRES_PASSWORD: gameauth
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:
