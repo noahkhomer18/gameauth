@@ -208,13 +208,13 @@ class GameAuthIntegrationTest {
         for (int i = 0; i < threadCount; i++) {
             final int index = i;
             threads[i] = new Thread(() -> {
-            BasicCredentials credentials = new BasicCredentials("user", "password");
-            Optional<GameUser> result;
-            try {
-                result = authenticator.authenticate(credentials);
-            } catch (Exception e) {
-                result = Optional.empty();
-            }
+                BasicCredentials credentials = new BasicCredentials("user", "password");
+                Optional<GameUser> result;
+                try {
+                    result = authenticator.authenticate(credentials);
+                } catch (Exception e) {
+                    result = Optional.empty();
+                }
                 results[index] = result.isPresent();
             });
             threads[i].start();
