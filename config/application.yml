@@ -1,0 +1,69 @@
+# GameAuth Application Configuration
+# This file contains configuration settings for the GameAuth application
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+
+logging:
+  level: INFO
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: logs/gameauth.log
+      archivedLogFilenamePattern: logs/gameauth-%d.log.gz
+      archivedFileCount: 5
+
+# Authentication Configuration
+auth:
+  # Session timeout in minutes
+  sessionTimeout: 30
+  
+  # Password requirements
+  passwordRequirements:
+    minLength: 8
+    requireUppercase: true
+    requireLowercase: true
+    requireNumbers: true
+    requireSpecialChars: false
+  
+  # Rate limiting
+  rateLimit:
+    enabled: true
+    maxAttempts: 5
+    windowMinutes: 15
+
+# Security Configuration
+security:
+  # CORS settings
+  cors:
+    allowedOrigins: ["*"]
+    allowedMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    allowedHeaders: ["*"]
+  
+  # Security headers
+  headers:
+    xssProtection: true
+    contentSecurityPolicy: "default-src 'self'"
+    frameOptions: "DENY"
+
+# Database Configuration (for future use)
+database:
+  driverClass: org.h2.Driver
+  url: jdbc:h2:mem:gameauth
+  user: sa
+  password: ""
+  properties:
+    charSet: UTF-8
+  maxWaitForConnection: 1s
+  validationQuery: "SELECT 1"
+  validationQueryTimeout: 3s
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+  minIdleTime: 1 minute
